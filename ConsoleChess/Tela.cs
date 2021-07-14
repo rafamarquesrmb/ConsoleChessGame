@@ -8,16 +8,25 @@ namespace ConsoleChess
     class Tela
     {
         
+        
         public static void imprimirPartida(PartidaDeXadrez partida)
         {
             imprimirTabuleiro(partida.tab);
             imprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno.ToString());
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual.ToString());
-            if (partida.xeque)
+            if (!partida.terminada) { 
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual.ToString());
+                if (partida.xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("XEQUE MATE!");
+                Console.WriteLine("PartidaTerminada");
+                Console.WriteLine("Vencedor: "+ partida.jogadorAtual);
             }
         }
         public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
