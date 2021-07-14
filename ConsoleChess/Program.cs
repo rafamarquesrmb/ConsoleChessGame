@@ -32,7 +32,7 @@ namespace ConsoleChess
 
                     Console.Write("Digite a Posição de Destino: ");
                     Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
-
+                    partida.validarPosicaoDeDestino(origem, destino);
                     partida.realizaJogada(origem, destino);
                     }
                     catch(TabuleiroException e)
