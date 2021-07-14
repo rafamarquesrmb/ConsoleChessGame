@@ -15,7 +15,10 @@ namespace ConsoleChess
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno.ToString());
             Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual.ToString());
-
+            if (partida.xeque)
+            {
+                Console.WriteLine("XEQUE!");
+            }
         }
         public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
         {
