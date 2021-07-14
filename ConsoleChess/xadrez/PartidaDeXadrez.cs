@@ -143,6 +143,44 @@ namespace xadrez
                 desfazMovimento(origem,destino,pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em Xeque");
             }
+            Peca p = tab.peca(destino);
+
+            //#jogadaespecial
+            //Promocao
+            if(p is Peao)
+            {
+                if((p.cor == Cor.Branca && destino.linha == 0)|| (p.cor == Cor.Preta && destino.linha == 7) )
+                {
+                    p = tab.retirarPeca(destino);
+                    pecas.Remove(p);
+                    Console.WriteLine("PROMOÇÃO!!");
+                    Console.WriteLine("Seu peão pode ser promovido.");
+                    Console.WriteLine("Escolha entre cavalo,bispo, dama ou torre (c/b/d/t)");
+                    char escolhaPromo = char.Parse(Console.ReadLine());
+                    Peca promovida;
+                    switch (escolhaPromo)
+                    {
+                        case 't':
+                            promovida = new Torre(tab, p.cor);
+                            break;
+                        case 'b':
+                            promovida = new Bispo(tab, p.cor);
+                            break;
+                        case 'c':
+                            promovida = new Cavalo(tab, p.cor);
+                            break;
+                        case 'd':
+                            promovida = new Dama(tab, p.cor);
+                            break;
+                        default:
+                            promovida = new Dama(tab, p.cor);
+                            break;
+                    }
+                    tab.colocarPeca(promovida, destino);
+                    pecas.Add(promovida);
+                }
+            }
+
             if (estaEmXeque(adversaria(jogadorAtual)))
             {
                 xeque = true;
@@ -162,7 +200,7 @@ namespace xadrez
             }
             //#jogadaespecial
             //enPassant
-            Peca p = tab.peca(destino);
+            
             if(p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha+2))
             {
                 vulneravelEnPassant = p;
